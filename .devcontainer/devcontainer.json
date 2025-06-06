@@ -1,0 +1,86 @@
+{
+  "name": "Nuxt.js Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "ms-vscode.vscode-json",
+        "usernamehw.errorlens",
+        "PKief.material-icon-theme",
+        "GitHub.copilot",
+        "ms-vscode.vscode-todo-highlight",
+        "wayou.vscode-todo-highlight",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        },
+        "typescript.preferences.includePackageJsonAutoImports": "auto",
+        "vue.complete.casing.tags": "kebab",
+        "vue.complete.casing.props": "camel",
+        "emmet.includeLanguages": {
+          "vue": "html"
+        },
+        "files.associations": {
+          "*.vue": "vue"
+        },
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "vue"
+        ],
+        "prettier.requireConfig": true,
+        "workbench.iconTheme": "material-icon-theme"
+      }
+    }
+  },
+
+  "forwardPorts": [3000, 24678],
+  "portsAttributes": {
+    "3000": {
+      "label": "Nuxt Dev Server",
+      "onAutoForward": "notify"
+    },
+    "24678": {
+      "label": "Vue DevTools",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "npm install -g @nuxt/cli pnpm yarn && mkdir -p .nuxt && echo 'Nuxt.js development environment is ready!'",
+
+  "remoteUser": "node",
+
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "NUXT_TELEMETRY_DISABLED": "1"
+  },
+
+  "mounts": [
+    "source=nuxt-cache,target=${containerWorkspaceFolder}/.nuxt,type=volume",
+    "source=nuxt-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ]
+}
