@@ -1,11 +1,10 @@
 {
   "name": "Nuxt.js Development Environment",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
+  "dockerFile": "Dockerfile",
   
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
 
   "customizations": {
@@ -24,14 +23,13 @@
         "PKief.material-icon-theme",
         "GitHub.copilot",
         "ms-vscode.vscode-todo-highlight",
-        "wayou.vscode-todo-highlight",
         "streetsidesoftware.code-spell-checker"
       ],
       "settings": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": true
+          "source.fixAll.eslint": "explicit"
         },
         "typescript.preferences.includePackageJsonAutoImports": "auto",
         "vue.complete.casing.tags": "kebab",
@@ -70,17 +68,12 @@
     }
   },
 
-  "postCreateCommand": "npm install -g @nuxt/cli pnpm yarn && mkdir -p .nuxt && echo 'Nuxt.js development environment is ready!'",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
 
-  "remoteUser": "node",
+  "remoteUser": "devuser",
 
   "containerEnv": {
     "NODE_ENV": "development",
     "NUXT_TELEMETRY_DISABLED": "1"
-  },
-
-  "mounts": [
-    "source=nuxt-cache,target=${containerWorkspaceFolder}/.nuxt,type=volume",
-    "source=nuxt-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
-  ]
+  }
 }
